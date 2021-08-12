@@ -1,16 +1,16 @@
 <h1>How to setup<h1>
 <br>
-step 1 : make database -> change .env info
+<p>step 1 : make database -> change .env info<p>
 <br>
-step 2 : composer install
+<p>step 2 : composer install<p>
 <br>
-step 3 : run " php artisan migrate:refresh --seed  "
+<p>step 3 : run " php artisan migrate:refresh --seed  "</p>
 <br>
-step 4: config vhost
+<p>step 4: config vhost</p>
 
-
+<br>
 <h2> fix call api er <h2>
 <br>
 <strong>Sanctum - Route [login] not defined<strong>
 <br>
-https://laracasts.com/discuss/channels/laravel/sanctum-route-login-not-defined
+<code>https://laracasts.com/discuss/channels/laravel/sanctum-route-login-not-defined</code>
