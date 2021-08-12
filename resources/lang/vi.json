@@ -1,0 +1,9 @@
+{
+    "email.required": "Vui Lòng nhập email",
+    "email.email": "email không đúng định dạng",
+    "email.unique": "email đã tồn tại",
+    "password.required": "Vui Lòng nhập mật khẩu",
+    "name.required": "Vui Lòng nhập tên",
+    "password.min": "Vui Lòng nhập mật khẩu trên 6 ký tự",
+    "register.user.success": "Vui Lòng nhập mật khẩu trên 6 ký tự"
+}
