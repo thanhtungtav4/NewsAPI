@@ -5,5 +5,8 @@
     "password.required": "Vui Lòng nhập mật khẩu",
     "name.required": "Vui Lòng nhập tên",
     "password.min": "Vui Lòng nhập mật khẩu trên 6 ký tự",
-    "register.user.success": "Vui Lòng nhập mật khẩu trên 6 ký tự"
+    "register.user.success": "Tạo tài khoản thành công",
+    "invalid.credentials": "Tạo tài khoản thành công",
+    "user.login.success": "Đăng nhập thành công",
+    "user.logout.success": "Đăng xuất thành công"
 }

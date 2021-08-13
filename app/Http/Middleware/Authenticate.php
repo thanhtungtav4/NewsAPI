@@ -7,23 +7,19 @@ use Illuminate\Auth\Middleware\Authenticate as Middleware;
 class Authenticate extends Middleware
 {
     /**
-     * Get the path the user should be redirected to when they are not authenticated.
+     * SPA app and all requests come only frontend 
      *
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
-    protected function redirectTo($request)
-    {
-        if (! $request->expectsJson()) {
-            return route('login');
-        }
-    }
-
 
     public function handle($request, Closure $next, ...$guards)
     {
         if($jwt = $request->cookie('jwt') ){
             $request->headers->set('Authorization', 'Bearer ' .$jwt);
+        }
+        else{
+            return response()->json(['error' => 'Unauthenticated.'], 401);   
         }
         $this->authenticate($request, $guards);
 

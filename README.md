@@ -10,3 +10,6 @@
 <a href="https://laracasts.com/discuss/channels/laravel/sanctum-route-login-not-defined">
 <strong>Sanctum - Route [login] not defined<strong>
 </a>
+<a href="https://agoalofalife.medium.com/laravel-route-login-not-defined-oops-f64b76060e1d">
+<strong>Sanctum - Route [login] not defined Case 2 custome middleware<strong>
+</a>

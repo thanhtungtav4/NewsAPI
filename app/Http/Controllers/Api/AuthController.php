@@ -27,14 +27,14 @@ class AuthController extends Controller
     {
         if(!Auth::attempt($request->only('email', 'password'))){
             return response([
-                'message' => 'Invalid credentials!'
+                'message' => __('invalid.credentials')
             ], 401);
         }
         $user = Auth::user();
         $token = $user->createToken('token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24);  //1 day
         return response([
-            'message' => 'Login Success'
+            'message' => __('user.login.success')
         ], 200)->withCookie($cookie);
     }
 
@@ -42,7 +42,7 @@ class AuthController extends Controller
     {
         $cookie = Cookie::forget('jwt');
         return response([
-            'message' => 'Logout Success'
+            'message' => __('user.logout.success')
         ], 200)->withCookie($cookie);
     }
 

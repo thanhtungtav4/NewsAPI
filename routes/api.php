@@ -22,6 +22,6 @@ Route::prefix('v1/user')->namespace('App\Http\Controllers\Api')->group(function 
     });
     // User web
     Route::post('/register', 'AuthController@register');
-    Route::post('/login', 'AuthController@login');
+    Route::post('/login', 'AuthController@login')->name('login');
 });
 
