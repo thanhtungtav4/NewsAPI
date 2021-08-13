@@ -159,7 +159,7 @@ class Article extends Model
         return $this->belongsToMany('\App\Models\Tag', 'article_tag');
     }
 
-    public function Comments()
+    public function comments()
     {
         return $this->belongsToMany('\App\Models\Comment');
     }
@@ -198,4 +198,23 @@ class Article extends Model
     |--------------------------------------------------------------------------
     */
     
+
+    /*
+    |--------------------------------------------------------------------------
+    | Model Api 
+    |--------------------------------------------------------------------------
+    */
+    public function getNews(array $filter = []){
+        $news = Article::orderByDesc('id')
+                ->with(['category']);
+        // filter post by category_id      
+        if (isset($filter['category_id']) && $filter['category_id'] > 0) {
+            $news->where('category_id', $filter['category_id']);
+        }
+        // filter post by title
+        if (isset($filter['title']) && $filter['title'] != null) {
+            $news->where("title", 'like', '%' . $filter['title'] . '%');
+        }
+        return $news->cursorPaginate($filter['cursorPaginate']);
+    }
 }
