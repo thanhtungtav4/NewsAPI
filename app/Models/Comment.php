@@ -15,7 +15,7 @@ class Comment extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'article_comments';
+    protected $table = 'article_comment';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -28,10 +28,10 @@ class Comment extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public function articles()
-    {
-        return $this->belongsTo('\App\Models\Article', 'article_id');
-    }
+    // public function articles()
+    // {
+    //     return $this->belongsToMany('\App\Models\Article', 'article_comment');
+    // }
     public function parent()
     {
         return $this->belongsTo('\App\Models\Comment', 'parent_id');

@@ -33,4 +33,15 @@ class PostController extends Controller
         return response()->json($oData, 200);;
     }
 
+
+    public function getPostBySlug($slug){
+        $mArticle = new Article();
+        try {
+            $oData = $mArticle->getPostBySlug($slug);
+            return response()->json($oData, 200);
+
+        } catch (\Throwable $th) {
+             return $th;
+        }
+    }
 }

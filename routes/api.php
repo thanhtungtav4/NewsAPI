@@ -28,5 +28,5 @@ Route::prefix('v1/user')->namespace('App\Http\Controllers\Api')->group(function 
 Route::prefix('v1/post')->namespace('App\Http\Controllers\Api')->group(function () {
     // Post web
     Route::get('/', 'PostController@getPost');
-
+    Route::get('/{slug}', 'PostController@getPostBySlug');
 });

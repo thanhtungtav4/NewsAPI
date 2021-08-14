@@ -159,10 +159,10 @@ class Article extends Model
         return $this->belongsToMany('\App\Models\Tag', 'article_tag');
     }
 
-    public function comments()
-    {
-        return $this->belongsToMany('\App\Models\Comment');
-    }
+    // public function commentsx()
+    // {
+    //     return $this->belongsToMany('\App\Models\Comment', 'article_comment');
+    // }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
@@ -215,6 +215,19 @@ class Article extends Model
         if (isset($filter['title']) && $filter['title'] != null) {
             $news->where("title", 'like', '%' . $filter['title'] . '%');
         }
+        
         return $news->cursorPaginate($filter['cursorPaginate']);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Get Detail post by slug
+    |--------------------------------------------------------------------------
+    */
+
+    public function getPostBySlug($slug){
+        $newDetail = Article::where('slug', $slug)->with(['category'])->first();
+        return $newDetail;
+    }
+    
 }
