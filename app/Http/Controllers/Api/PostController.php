@@ -22,11 +22,9 @@ class PostController extends Controller
         if (isset($filter['is_active']) && $filter['is_active'] == -1) {
             unset($filter['is_active']);
         }
-       // dd($filter);
-        if (!isset($filter['cursorPaginate'])){
-            $filter['cursorPaginate'] = 1;
+        if (isset($filter['cursorPaginate']) && $filter['cursorPaginate'] == -1) {
+             unset($filter['cursorPaginate']);
         }
-        //set cursorPaginate default
 
         $oData = $mArticle->getNews($filter);
 

@@ -15,23 +15,36 @@ class Comment extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'article_comment';
+    protected $table = 'comments';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
-
+    public function setArticleIdAttribute($value){
+        dd($value);
+        // $userId = Auth::guard('backpack')->user()['id'];
+        // $this->attributes['user_create'] = $userId;
+        // is get user id is login 
+    }
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    // public function articles()
-    // {
-    //     return $this->belongsToMany('\App\Models\Article', 'article_comment');
-    // }
+    public function articles()
+    {
+        return $this->belongsToMany('\App\Models\Article', 'article_comment');
+    }
+    public function articlesName()
+    {
+        return $this->belongsToMany('\App\Models\Article', 'article_comment');
+    }
+    public function articlesNameEdit()
+    {
+        return $this->belongsTo('\App\Models\Article', 'article_comment');
+    }
     public function parent()
     {
         return $this->belongsTo('\App\Models\Comment', 'parent_id');

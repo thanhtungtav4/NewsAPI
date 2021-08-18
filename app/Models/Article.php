@@ -159,6 +159,11 @@ class Article extends Model
         return $this->belongsToMany('\App\Models\Tag', 'article_tag');
     }
 
+    public function comments()
+    {
+        return $this->belongsToMany('\App\Models\Comment', 'article_comment');
+    }
+
     // public function commentsx()
     // {
     //     return $this->belongsToMany('\App\Models\Comment', 'article_comment');
@@ -212,11 +217,16 @@ class Article extends Model
             $news->where('category_id', $filter['category_id']);
         }
         // filter post by title
-        if (isset($filter['title']) && $filter['title'] != null) {
-            $news->where("title", 'like', '%' . $filter['title'] . '%');
+        if (isset($filter['seach']) && $filter['seach'] != null) {
+            $news->where("title", 'like', '%' . $filter['seach'] . '%');
+        }
+        // if $filter['cursorPaginate'] == 1 phân trang theo con trỏ
+        if (isset($filter['cursorPaginate']) && $filter['cursorPaginate'] != -1 && $filter['cursorPaginate'] == 1) {
+            return $news->cursorPaginate($filter['numPaginate']);
         }
         
-        return $news->cursorPaginate($filter['cursorPaginate']);
+        return $news->paginate($filter['numPaginate']);
+        
     }
 
     /*
@@ -226,7 +236,7 @@ class Article extends Model
     */
 
     public function getPostBySlug($slug){
-        $newDetail = Article::where('slug', $slug)->with(['category'])->first();
+        $newDetail = Article::where('slug', $slug)->with(['category', 'comments', 'tags'])->first();
         return $newDetail;
     }
     

@@ -14,10 +14,9 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class CommentCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+ 
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -39,8 +38,23 @@ class CommentCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
+        $this->crud->addColumn([
+            'label' => 'Thuộc bài viết',
+            'name' => 'articlesName',
+        ]);
 
+        $this->crud->addColumn([
+            'name' => 'body',
+            'label' => 'Nội Dung ',
+            'type'  => 'textarea',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'is_active',
+            'label' => 'Trạng thái',
+            'type'            => 'select_from_array',
+            'options' => ['1' => 'Công khai', '0' => 'Bản nháp', '2' => 'xóa'],
+        ]);
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -54,16 +68,23 @@ class CommentCrudController extends CrudController
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
-    protected function setupCreateOperation()
+
+    /**
+     * Define what happens when the Update operation is loaded.
+     * 
+     * @see https://backpackforlaravel.com/docs/crud-operation-update
+     * @return void
+     */
+    protected function setupUpdateOperation()
     {
         CRUD::setValidation(CommentRequest::class);
 
         CRUD::addField([
-            'label' => 'Select News Title',
-            'type' => 'relationship',
-            'name' => 'article_id',
-            'entity' => 'articles',
-            'attribute' => 'title',
+            'label' => 'For News Title',
+            'name' => 'articlesName',
+            'attributes' => [
+               'disabled' => 'disabled',
+             ],
         ]);
         CRUD::addField([
             'name' => 'body',
@@ -88,26 +109,7 @@ class CommentCrudController extends CrudController
             'name' => 'is_active',
             'label' => 'Trạng thái',
             'type'            => 'select_from_array',
-            'options' => ['1' => 'Công khai', '0' => 'Bản nháp'],
+            'options' => ['1' => 'Công khai', '0' => 'Bản nháp', '2'=> 'Xóa'],
         ]);
-    
-        // CRUD::setFromDb(); // fields
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
-    }
-
-    /**
-     * Define what happens when the Update operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
-    protected function setupUpdateOperation()
-    {
-        $this->setupCreateOperation();
     }
 }
