@@ -28,7 +28,7 @@ class PostController extends Controller
 
         $oData = $mArticle->getNews($filter);
 
-        return response()->json($oData, 200);;
+        return response()->json($oData, 200);
     }
 
 

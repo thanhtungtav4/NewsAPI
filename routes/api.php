@@ -30,3 +30,8 @@ Route::prefix('v1/post')->namespace('App\Http\Controllers\Api')->group(function 
     Route::get('/', 'PostController@getPost');
     Route::get('/{slug}', 'PostController@getPostBySlug');
 });
+Route::prefix('v1/category')->namespace('App\Http\Controllers\Api')->group(function () {
+    // Post web
+    Route::get('/', 'CategoryController@getCategory');
+    Route::get('/{slug}', 'CategoryController@getCategoryBySlug');
+});

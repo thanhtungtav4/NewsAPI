@@ -96,6 +96,15 @@ class Category extends Model
         return $this->name;
     }
 
+    public function getCategory(){
+        $mCategory = Category::all('name', 'slug', 'id');
+        return $mCategory;
+    }    
+
+    public function getCategoryBySlug($slug){
+        $mCategory = Category::where('slug', $slug)->first();;
+        return $mCategory;
+    }   
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
