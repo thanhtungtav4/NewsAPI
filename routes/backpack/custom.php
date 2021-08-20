@@ -18,4 +18,5 @@ Route::group([
     Route::crud('category', 'CategoryCrudController');
     Route::crud('tag', 'TagCrudController');
     Route::crud('comment', 'CommentCrudController');
+    Route::crud('menu-item', 'MenuItemCrudController');
 }); 

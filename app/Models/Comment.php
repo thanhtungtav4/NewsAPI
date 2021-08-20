@@ -75,6 +75,9 @@ class Comment extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    /**
+     * get comment by post id 
+     */
     public function getCommentByPostId($id){
         $mComment = Comment::where('article_id', $id)->get();
         return $mComment;
