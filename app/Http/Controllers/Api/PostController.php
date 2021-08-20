@@ -39,7 +39,7 @@ class PostController extends Controller
             return response()->json($oData, 200);
 
         } catch (\Throwable $th) {
-             return $th;
+            return response()->json('', 404);
         }
     }
 }

@@ -32,7 +32,7 @@ class AuthController extends Controller
         }
         $user = Auth::user();
         $token = $user->createToken('token')->plainTextToken;
-        $cookie = cookie('jwt', $token, 60 * 24);  //1 day
+        $cookie = cookie('jwt', $token, 60 * 48);  //1 day
         return response([
             'message' => __('user.login.success')
         ], 200)->withCookie($cookie);
@@ -48,7 +48,8 @@ class AuthController extends Controller
 
     public function user()
     {
-        return 'Authen User';
+        $user = Auth::user('id', 'name', 'email');
+        return $user;
     }
 
 }
