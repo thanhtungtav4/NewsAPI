@@ -236,7 +236,7 @@ class Article extends Model
     */
 
     public function getPostBySlug($slug){
-        $newDetail = Article::where('slug', $slug)->with(['category', 'comments', 'tags'])->first();
+        $newDetail = Article::where('slug', $slug)->with(['category', 'tags'])->first();
         return $newDetail;
     }
     

@@ -31,7 +31,12 @@ Route::prefix('v1/post')->namespace('App\Http\Controllers\Api')->group(function 
     Route::get('/{slug}', 'PostController@getPostBySlug');
 });
 Route::prefix('v1/category')->namespace('App\Http\Controllers\Api')->group(function () {
-    // Post web
+    // Category web
     Route::get('/', 'CategoryController@getCategory');
     Route::get('/{slug}', 'CategoryController@getCategoryBySlug');
+});
+
+Route::prefix('v1/comment')->namespace('App\Http\Controllers\Api')->group(function () {
+    // Comment web
+   Route::get('/{id}', 'CommentController@getCommentByPostId');
 });
