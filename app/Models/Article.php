@@ -95,7 +95,7 @@ class Article extends Model
 
     public function setMetaImageAttribute($value)
     {
-        $attribute_name = "image";
+        $attribute_name = "meta_image";
         // or use your own disk, defined in config/filesystems.php
         $disk = config('backpack.base.root_disk_name'); 
         // destination path relative to the disk above
@@ -212,6 +212,7 @@ class Article extends Model
     public function getNews(array $filter = []){
         $news = Article::orderByDesc('id')
                 ->with(['category']);
+        $news->select('title', 'slug', 'category_id', 'description', 'status', 'created_at', 'image' );       
         // filter post by category_id      
         if (isset($filter['category_id']) && $filter['category_id'] > 0) {
             $news->where('category_id', $filter['category_id']);
@@ -220,12 +221,17 @@ class Article extends Model
         if (isset($filter['seach']) && $filter['seach'] != null) {
             $news->where("title", 'like', '%' . $filter['seach'] . '%');
         }
-        // if $filter['cursorPaginate'] == 1 phân trang theo con trỏ
-        if (isset($filter['cursorPaginate']) && $filter['cursorPaginate'] != -1 && $filter['cursorPaginate'] == 1) {
-            return $news->cursorPaginate($filter['numPaginate']);
+        //filter limit get post
+        if (isset($filter['limit']) && $filter['limit'] != null) {
+           return $news->limit($filter['limit'])->get();
+           //break
+        }else{
+            // if $filter['cursorPaginate'] == 1 phân trang theo con trỏ
+            if (isset($filter['cursorPaginate']) && $filter['cursorPaginate'] == 1) {
+                return $news->cursorPaginate($filter['numPaginate']);
+            }
+            return $news->paginate($filter['numPaginate']);
         }
-        
-        return $news->paginate($filter['numPaginate']);
         
     }
 

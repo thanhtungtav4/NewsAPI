@@ -25,6 +25,9 @@ class PostController extends Controller
         if (isset($filter['cursorPaginate']) && $filter['cursorPaginate'] == -1) {
              unset($filter['cursorPaginate']);
         }
+        if(!isset($filter['numPaginate'])){
+            $filter['numPaginate'] = 15;
+        }
 
         $oData = $mArticle->getNews($filter);
 

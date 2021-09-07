@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+header('Access-Control-Allow-Origin: ' . '*');
+header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, PATCH, DELETE');
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/user')->namespace('App\Http\Controllers\Api')->group(function () {
     // User auth 
-    Route::middleware(['auth:sanctum'])->group(function () {
+    Route::middleware(['auth:sanctum' , 'cors'])->group(function () {
         Route::get('/', 'AuthController@user');
         Route::post('/logout', 'AuthController@logout');
     });
@@ -25,7 +27,7 @@ Route::prefix('v1/user')->namespace('App\Http\Controllers\Api')->group(function 
     Route::post('/login', 'AuthController@login')->name('login');
 });
 
-Route::prefix('v1/post')->namespace('App\Http\Controllers\Api')->group(function () {
+Route::prefix('v1/post')->middleware(['cors'])->namespace('App\Http\Controllers\Api')->group(function () {
     // Post web
     Route::get('/', 'PostController@getPost');
     Route::get('/{slug}', 'PostController@getPostBySlug');

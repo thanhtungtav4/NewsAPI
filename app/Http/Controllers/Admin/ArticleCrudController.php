@@ -195,7 +195,7 @@ class ArticleCrudController extends CrudController
             $this->crud->addField([
                 'name' => 'meta_image',
                 'label' => 'Meta Image',
-                'type' => 'browse',
+                'type' => 'image',
                 'tab'  => 'META SEO',
             ]);
             
