@@ -31,6 +31,7 @@ class Article extends Model
     protected $casts = [
         'featured'  => 'boolean',
         'date'      => 'date',
+        'created_at' => 'datetime:d-m-Y',
     ];
 
     /**
@@ -210,7 +211,7 @@ class Article extends Model
     |--------------------------------------------------------------------------
     */
     public function getNews(array $filter = []){
-        $news = Article::orderByDesc('id')
+        $news = Article::orderBy('created_at', 'DESC')
                 ->with(['category']);
         $news->select('title', 'slug', 'category_id', 'description', 'status', 'created_at', 'image' );       
         // filter post by category_id      
@@ -221,6 +222,11 @@ class Article extends Model
         if (isset($filter['seach']) && $filter['seach'] != null) {
             $news->where("title", 'like', '%' . $filter['seach'] . '%');
         }
+        // filter subMonth
+        if (isset($filter['Month']) && $filter['Month'] != null) {
+            $news->whereDate('created_at', '>', $filter['Month']);
+        }
+
         //filter limit get post
         if (isset($filter['limit']) && $filter['limit'] != null) {
            return $news->limit($filter['limit'])->get();

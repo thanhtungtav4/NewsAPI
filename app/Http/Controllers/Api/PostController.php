@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Article;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -28,9 +29,12 @@ class PostController extends Controller
         if(!isset($filter['numPaginate'])){
             $filter['numPaginate'] = 15;
         }
-
+        if(isset($filter['currentMonth']) && $filter['currentMonth'] == true){
+            unset($filter['currentMonth']);
+            $filter['Month'] = Carbon::now()->subMonth();
+        }
+       
         $oData = $mArticle->getNews($filter);
-
         return response()->json($oData, 200);
     }
 
