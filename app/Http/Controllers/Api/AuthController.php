@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AuthRequest;
+use App\Http\Requests\AuthLoginRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use App\Models\User;
@@ -23,19 +24,23 @@ class AuthController extends Controller
         return response()->json(['success' =>  __('register.user.success')], 200);
     }
 
-    public function login(Request $request)
+    public function login(AuthLoginRequest $request)
     {
-        if(!Auth::attempt($request->only('email', 'password'))){
+        if(Auth::attempt($request->only('email', 'password'))){
+            $user = Auth::user();
+            $token = $user->createToken('token')->plainTextToken;
+            $cookie = cookie('jwt', $token, 60 * 48);  //1 day
             return response([
-                'message' => __('invalid.credentials')
+                'message' => 'Login Success'
+            ], 200)->withCookie($cookie);
+        }
+        else{
+            return response([
+                'message' => 'Email or Password incorrect'
             ], 401);
         }
-        $user = Auth::user();
-        $token = $user->createToken('token')->plainTextToken;
-        $cookie = cookie('jwt', $token, 60 * 48);  //1 day
-        return response([
-            'message' => __('user.login.success')
-        ], 200)->withCookie($cookie);
+        
+       
     }
 
     public function logout()

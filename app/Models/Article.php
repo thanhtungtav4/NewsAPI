@@ -25,7 +25,7 @@ class Article extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     // protected $guarded = ['id'];
-    protected $fillable = ['slug', 'title', 'content', 'image', 'status', 'category_id', 'featured', 'date', 'description','meta_index', 'meta_description', 'meta_image', 'meta_schema'];
+    protected $fillable = ['slug', 'user_id', 'title', 'content', 'image', 'status', 'category_id', 'featured', 'date', 'description','meta_index', 'meta_description', 'meta_image', 'meta_schema'];
     // protected $hidden = [];
     // protected $dates = [];
     protected $casts = [
@@ -154,6 +154,10 @@ class Article extends Model
     {
         return $this->belongsTo('\App\Models\Category', 'category_id');
     }
+    public function users()
+    {
+        return $this->belongsTo('\App\Models\User', 'user_id');
+    }
 
     public function tags()
     {
@@ -212,8 +216,8 @@ class Article extends Model
     */
     public function getNews(array $filter = []){
         $news = Article::orderBy('created_at', 'DESC')
-                ->with(['category']);
-        $news->select('title', 'slug', 'category_id', 'description', 'status', 'created_at', 'image' );       
+                ->with(['category', 'users']);
+        $news->select('title', 'user_id', 'slug', 'category_id', 'description', 'status', 'created_at', 'image' );       
         // filter post by category_id      
         if (isset($filter['category_id']) && $filter['category_id'] > 0) {
             $news->where('category_id', $filter['category_id']);
@@ -248,7 +252,7 @@ class Article extends Model
     */
 
     public function getPostBySlug($slug){
-        $newDetail = Article::where('slug', $slug)->with(['category', 'tags'])->first();
+        $newDetail = Article::where('slug', $slug)->with(['category', 'tags', 'users'])->first();
         return $newDetail;
     }
     
