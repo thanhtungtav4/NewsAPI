@@ -64,6 +64,11 @@ class CategoryCrudController extends CrudController
             // 'disabled' => 'disabled'
         ]);
         CRUD::addField([
+            'name'  => 'image',
+            'label' => 'Image',
+            'type'  => 'browse'
+        ]);
+        CRUD::addField([
             'label' => 'Parent',
             'type' => 'select',
             'name' => 'parent_id',

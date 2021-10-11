@@ -22,7 +22,7 @@ class Category extends Model
     protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'slug', 'parent_id'];
+    protected $fillable = ['name', 'slug', 'parent_id', 'image'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -97,7 +97,7 @@ class Category extends Model
     }
 
     public function getCategory(){
-        $mCategory = Category::all('name', 'slug', 'id');
+        $mCategory = Category::all('name', 'slug', 'id', 'image');
         return $mCategory;
     }    
 
