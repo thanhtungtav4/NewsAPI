@@ -118,7 +118,14 @@ class ArticleCrudController extends CrudController
                 'entity' => 'category',
                 'attribute' => 'name',
                 'inline_create' => true,
-                'ajax' => true,
+            ]);
+            $this->crud->addField([
+                'label' => 'Post By User',
+                'type' => 'relationship',
+                'name' => 'user_id',
+                'entity' => 'users',
+                'attribute' => 'name',
+                
             ]);
             $this->crud->addField([
                 'label' => 'Tags',
@@ -128,7 +135,6 @@ class ArticleCrudController extends CrudController
                 'attribute' => 'name', // foreign key attribute that is shown to user
                 'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
                 'inline_create' => ['entity' => 'tag'],
-                'ajax' => true,
             ]);
             $this->crud->addField([
                 'name' => 'status',
