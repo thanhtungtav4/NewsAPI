@@ -230,7 +230,6 @@ class Article extends Model
         if (isset($filter['Month']) && $filter['Month'] != null) {
             $news->whereDate('created_at', '>', $filter['Month']);
         }
-
         //filter limit get post
         if (isset($filter['limit']) && $filter['limit'] != null) {
            return $news->limit($filter['limit'])->get();
@@ -242,9 +241,7 @@ class Article extends Model
             }
             return $news->paginate($filter['numPaginate']);
         }
-        
     }
-
     /*
     |--------------------------------------------------------------------------
     | Get Detail post by slug
@@ -253,6 +250,7 @@ class Article extends Model
 
     public function getPostBySlug($slug){
         $newDetail = Article::where('slug', $slug)->with(['category', 'tags', 'users'])->first();
+        $newDetail['related_post'] = Article::select('title', 'category_id', 'user_id', 'slug', 'description', 'image' )->with(['users','category'])->where('category_id', $newDetail->category_id)->limit(3)->get();
         return $newDetail;
     }
     
