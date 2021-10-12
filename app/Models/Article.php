@@ -217,7 +217,8 @@ class Article extends Model
     public function getNews(array $filter = []){
         $news = Article::orderBy('created_at', 'DESC')
                 ->with(['category', 'users']);
-        $news->select('title', 'user_id', 'slug', 'category_id', 'description', 'status', 'created_at', 'image' );       
+        $news->select('title', 'user_id', 'slug', 'category_id', 'description', 'status', 'created_at', 'image' )
+            ->where('status', 'PUBLISHED');       
         // filter post by category_id      
         if (isset($filter['category_id']) && $filter['category_id'] > 0) {
             $news->where('category_id', $filter['category_id']);
@@ -249,8 +250,8 @@ class Article extends Model
     */
 
     public function getPostBySlug($slug){
-        $newDetail = Article::where('slug', $slug)->with(['category', 'tags', 'users'])->first();
-        $newDetail['related_post'] = Article::select('title', 'category_id', 'user_id', 'slug', 'description', 'image' )->with(['users','category'])->where('category_id', $newDetail->category_id)->limit(3)->get();
+        $newDetail = Article::where('slug', $slug)->where('status', 'PUBLISHED')->with(['category', 'tags', 'users'])->first();
+        $newDetail['related_post'] = Article::select('title', 'category_id', 'user_id', 'slug', 'description', 'image' )->with(['users','category'])->where('category_id', $newDetail->category_id)->where('status', 'PUBLISHED')->limit(3)->get();
         return $newDetail;
     }
     

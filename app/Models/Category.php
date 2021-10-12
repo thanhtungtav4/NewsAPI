@@ -102,7 +102,8 @@ class Category extends Model
     }    
 
     public function getCategoryBySlug($slug){
-        $mCategory = Category::where('slug', $slug)->first();;
+        $mCategory = Category::where('slug', $slug)->select('name', 'slug', 'id', 'image')->first();
+        $mCategory['postByCategory'] = Article::select('title', 'category_id', 'user_id', 'slug', 'description', 'image' )->with(['users','category'])->where('category_id', $mCategory->id)->where('status', 'PUBLISHED')->paginate(2);
         return $mCategory;
     }   
     /*
