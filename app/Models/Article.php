@@ -226,6 +226,7 @@ class Article extends Model
         // filter post by title
         if (isset($filter['seach']) && $filter['seach'] != null) {
             $news->where("title", 'like', '%' . $filter['seach'] . '%');
+            $news->orWhere("description", 'like', '%' . $filter['seach'] . '%');
         }
         // filter subMonth
         if (isset($filter['Month']) && $filter['Month'] != null) {
