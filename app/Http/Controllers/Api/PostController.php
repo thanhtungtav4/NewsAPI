@@ -27,9 +27,9 @@ class PostController extends Controller
              unset($filter['cursorPaginate']);
         }
         if(!isset($filter['numPaginate'])){
-            $filter['numPaginate'] = 15;
+            $filter['numPaginate'] = 5;
         }
-        if(isset($filter['currentMonth']) && $filter['currentMonth'] == true){
+        if(isset($filter['currentMonth']) && $filter['currentsMonth'] == true){
             unset($filter['currentMonth']);
             $filter['Month'] = Carbon::now()->subMonth();
         }
