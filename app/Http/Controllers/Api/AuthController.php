@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AuthRequest;
@@ -29,10 +27,13 @@ class AuthController extends Controller
         if(Auth::attempt($request->only('email', 'password'))){
             $user = Auth::user();
             $token = $user->createToken('token')->plainTextToken;
-            $cookie = cookie('jwt', $token, 60 * 48);  //1 day
-            return response([
-                'message' => 'Login Success'
-            ], 200)->withCookie($cookie);
+        //     $cookie = cookie('jwt', $token, 60 * 48);  //1 day
+        //     return response([
+        //         'message' => 'Login Success'
+        //     ], 200)->withCookie($cookie);
+        //    // return $token;
+        return response()
+            ->json(['message' => 'Hi '.$user->name.', welcome to comback','access_token' => $token, 'token_type' => 'Bearer', ]);
         }
         else{
             return response([
@@ -43,12 +44,12 @@ class AuthController extends Controller
        
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        $cookie = Cookie::forget('jwt');
+        auth()->user()->tokens()->delete();
         return response([
             'message' => __('user.logout.success')
-        ], 200)->withCookie($cookie);
+        ], 200);
     }
 
     public function user()
