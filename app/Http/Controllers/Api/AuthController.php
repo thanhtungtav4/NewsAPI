@@ -33,7 +33,12 @@ class AuthController extends Controller
         //     ], 200)->withCookie($cookie);
         //    // return $token;
         return response()
-            ->json(['message' => 'Hi '.$user->name.', welcome to comback','access_token' => $token, 'token_type' => 'Bearer', ]);
+            ->json([
+                'success' => 'Đăng nhập thành công',
+                'message' => 'Hi '.$user->name.', welcome to comback',
+                'access_token' => $token, 
+                'token_type' => 'Bearer', 
+            ]);
         }
         else{
             return response([
