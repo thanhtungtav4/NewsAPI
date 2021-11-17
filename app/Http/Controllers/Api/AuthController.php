@@ -17,6 +17,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
+            'username' => $request->input('username'),
             'password' => Hash::make($request->input('password')),
         ]);
         return response()->json(['success' =>  __('register.user.success')], 200);
@@ -59,7 +60,7 @@ class AuthController extends Controller
 
     public function user()
     {
-        $user = Auth::user('id', 'name', 'email');
+        $user = Auth::user('id', 'name', 'email', 'username');
         return $user;
     }
 

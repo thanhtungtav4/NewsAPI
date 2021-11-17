@@ -29,6 +29,7 @@ class AuthRequest extends FormRequest
             'name' => 'required|max:150',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
+            'username' => 'required|unique:users',
         ];
     }
     /**
@@ -43,6 +44,8 @@ class AuthRequest extends FormRequest
             'email.required'         => __('email.required'),
             'email.email'         => __('email.email'),
             'email.unique'         => __('email.unique'),
+            'username.required'         => __('Vui lòng nhập Username'),
+            'username.unique'         => __('Username đã được sử dụng'),
             'password.required' => __('password.required'),
             'password.min' => __('password.min'),
         ];
