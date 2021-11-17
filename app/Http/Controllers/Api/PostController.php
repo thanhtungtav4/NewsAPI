@@ -39,6 +39,7 @@ class PostController extends Controller
     }
 
     public function ByUser(){
+        
        $userid = Auth::id();
        $mPost = Article::where('user_id', $userid)
        ->select('title', 'user_id', 'slug', 'category_id', 'description', 'status', 'created_at', 'image' )

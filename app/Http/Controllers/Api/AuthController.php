@@ -6,6 +6,7 @@ use App\Http\Requests\AuthRequest;
 use App\Http\Requests\AuthLoginRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 use App\Models\User;
 use Auth;
 use Cookie;
@@ -14,10 +15,11 @@ class AuthController extends Controller
 {
     public function register(AuthRequest $request)
     {
+        $slugUserName = Str::slug($request->input('username'), '-');
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'username' => $request->input('username'),
+            'username' => $slugUserName,
             'password' => Hash::make($request->input('password')),
         ]);
         return response()->json(['success' =>  __('register.user.success')], 200);
