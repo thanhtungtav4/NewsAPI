@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,6 +28,11 @@ class PostController extends Controller
         if (isset($filter['cursorPaginate']) && $filter['cursorPaginate'] == -1) {
              unset($filter['cursorPaginate']);
         }
+        if (isset($filter['byUserName']) && $filter['byUserName'] != null) {
+            //get slug username after get username id 
+            $oUser = User::where('username', $filter['byUserName'])->select('id')->first();
+            $filter['postByUserId'] = $oUser['id'];
+       }
         if(!isset($filter['numPaginate'])){
             $filter['numPaginate'] = 5;
         }

@@ -232,10 +232,15 @@ class Article extends Model
         if (isset($filter['Month']) && $filter['Month'] != null) {
             $news->whereDate('created_at', '>', $filter['Month']);
         }
+        //filter by slug Username
+        if (isset($filter['postByUserId']) && $filter['postByUserId'] != null) {
+            $news->where('user_id', $filter['postByUserId']);
+        }
+        
         //filter limit get post
         if (isset($filter['limit']) && $filter['limit'] != null) {
            return $news->limit($filter['limit'])->get();
-           //break
+        //break
         }else{
             // if $filter['cursorPaginate'] == 1 phân trang theo con trỏ
             if (isset($filter['cursorPaginate']) && $filter['cursorPaginate'] == 1) {
