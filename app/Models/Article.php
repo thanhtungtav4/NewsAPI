@@ -263,10 +263,10 @@ class Article extends Model
         $oUser = User::where('username', $slug)->first();
         if(isset($oUser)){
          $mPost = Article::where('user_id', $oUser->id)
-         ->select('title', 'user_id', 'slug', 'category_id', 'description', 'status', 'created_at', 'image' )
-         ->where('status', 'PUBLISHED')
-         ->with(['category'])
-         ->get();
+            ->select('title', 'user_id', 'slug', 'category_id', 'description', 'status', 'created_at', 'image' )
+            ->where('status', 'PUBLISHED')
+            ->with(['category', 'users'])
+            ->paginate(10);
          $oData['user'] = $oUser;
          $oData['post'] = $mPost;
          return $oData;
@@ -277,8 +277,16 @@ class Article extends Model
     }
 
     public function getPostBySlug($slug){
-        $newDetail = Article::where('slug', $slug)->where('status', 'PUBLISHED')->with(['category', 'tags', 'users'])->first();
-        $newDetail['related_post'] = Article::select('title', 'category_id', 'user_id', 'slug', 'description', 'image' )->with(['users','category'])->where('category_id', $newDetail->category_id)->where('status', 'PUBLISHED')->limit(3)->get();
+        $newDetail = Article::where('slug', $slug)
+            ->where('status', 'PUBLISHED')
+            ->with(['category', 'tags', 'users'])
+            ->first();
+        $newDetail['related_post'] = Article::select('title', 'category_id', 'user_id', 'slug', 'description', 'image' )
+            ->with(['users','category'])
+            ->where('category_id', $newDetail->category_id)
+            ->where('status', 'PUBLISHED')
+            ->limit(3)
+            ->get();
         return $newDetail;
     }
     

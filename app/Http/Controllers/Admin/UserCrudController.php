@@ -94,6 +94,21 @@ class UserCrudController extends CrudController
                 'type'  => 'email',
             ],
             [
+                'name'  => 'username',
+                'label' => 'User Name',
+                'type'  => 'text',
+            ],
+            [   // Date
+                'name'  => 'birthday',
+                'label' => 'birthday',
+                'type'  => 'date'
+            ],
+            [
+                'name'  => 'description',
+                'label' => 'Bio',
+                'type'  => 'textarea',
+            ],
+            [
                 'name'  => 'password',
                 'label' => 'Password',
                 'type'  => 'password',
@@ -106,6 +121,11 @@ class UserCrudController extends CrudController
             [   // Browse
                 'name'  => 'image',
                 'label' => 'Image',
+                'type'  => 'browse'
+            ],
+            [   // Browse
+                'name'  => 'banner',
+                'label' => 'Image Background',
                 'type'  => 'browse'
             ],
         ]);
