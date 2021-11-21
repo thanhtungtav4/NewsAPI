@@ -44,13 +44,15 @@ class PostController extends Controller
         return response()->json($oData, 200);
     }
 
-    public function ByUser(){
-        
-       $userid = Auth::id();
-       $mPost = Article::where('user_id', $userid)
-       ->select('title', 'user_id', 'slug', 'category_id', 'description', 'status', 'created_at', 'image' )
-       ->get();
-       return response()->json($mPost, 200);
+    public function ByUser($slug){
+        $mArticle = new Article();
+        $oData = $mArticle->getPostByUserName($slug);
+        if(isset($oData)){
+            return response()->json($oData, 200);
+        }
+        else{
+            return response()->json('', 404);
+        }
     }
 
     public function getPostBySlug($slug){

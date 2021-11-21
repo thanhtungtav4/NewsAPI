@@ -254,6 +254,27 @@ class Article extends Model
     | Get Detail post by slug
     |--------------------------------------------------------------------------
     */
+    /**
+     * Get List Post By UserName
+     * 
+     */
+    public function getPostByUserName($slug){
+        $data = [''];
+        $oUser = User::where('username', $slug)->first();
+        if(isset($oUser)){
+         $mPost = Article::where('user_id', $oUser->id)
+         ->select('title', 'user_id', 'slug', 'category_id', 'description', 'status', 'created_at', 'image' )
+         ->where('status', 'PUBLISHED')
+         ->with(['category'])
+         ->get();
+         $oData['user'] = $oUser;
+         $oData['post'] = $mPost;
+         return $oData;
+        }
+        else{
+            return null;
+        }
+    }
 
     public function getPostBySlug($slug){
         $newDetail = Article::where('slug', $slug)->where('status', 'PUBLISHED')->with(['category', 'tags', 'users'])->first();

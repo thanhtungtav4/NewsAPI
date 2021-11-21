@@ -25,6 +25,7 @@ class CreateArticlesTable extends Migration
             $table->string('meta_image')->nullable();
             $table->string('meta_schema')->nullable();
             $table->string('image')->nullable();
+            $table->integer('page_view')->default(0);
             $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('PUBLISHED');
             $table->date('date')->nullable();
             $table->boolean('featured')->default(0);
