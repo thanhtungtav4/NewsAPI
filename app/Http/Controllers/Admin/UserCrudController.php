@@ -98,6 +98,16 @@ class UserCrudController extends CrudController
                 'label' => 'User Name',
                 'type'  => 'text',
             ],
+            [
+                'name'  => 'gender',
+                'label' => 'Gender',
+                'type'  => 'radio',
+                'options'     => [
+                    // the key will be stored in the db, the value will be shown as label; 
+                    'Nam' => "Nam",
+                    'Nữ' => "Nữ"
+                ],
+            ],
             [   // Date
                 'name'  => 'birthday',
                 'label' => 'birthday',

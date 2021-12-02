@@ -46,10 +46,20 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('\App\Models\Comment');
     }
+    
     public function articles()
     {
         return $this->hasMany('\App\Models\Article');
     }
+
+    protected function bookmarks(){
+        return $this->belongsToMany('\App\Models\Bookmark');
+    }
+
+    protected function likes(){
+        return $this->belongsToMany('\App\Models\Like');
+    }
+
     /**
      * The attributes that should be cast to native types.
      *

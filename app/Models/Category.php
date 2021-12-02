@@ -108,7 +108,7 @@ class Category extends Model
                                        ->with(['users','category'])
                                        ->where('category_id', $mCategory->id)
                                        ->where('status', 'PUBLISHED')
-                                       ->paginate(4);
+                                       ->paginate(1);
         return $mCategory;
     }   
     /*

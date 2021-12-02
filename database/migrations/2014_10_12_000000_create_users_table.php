@@ -23,10 +23,9 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->string('image')->nullable();
             $table->string('banner')->nullable();
-            $table->string('savepost')->nullable();
             $table->string('gender')->nullable();
             $table->string('birthday')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

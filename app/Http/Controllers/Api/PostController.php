@@ -9,6 +9,7 @@ use App\Models\Article;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Bookmarkrequest;
 
 class PostController extends Controller
 {
@@ -65,4 +66,6 @@ class PostController extends Controller
             return response()->json('', 404);
         }
     }
+
+    
 }

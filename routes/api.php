@@ -41,3 +41,21 @@ Route::prefix('v1/comment')->namespace('App\Http\Controllers\Api')->group(functi
     // Comment web
    Route::get('/{id}', 'CommentController@getCommentByPostId');
 });
+
+Route::prefix('v1/bookmark')->namespace('App\Http\Controllers\Api')->group(function () {
+    // get bookmark by user web
+    Route::middleware(['auth:sanctum' , 'cors'])->group(function () {
+        Route::get('/', 'BookmarkController@list');
+        Route::post('/check', 'BookmarkController@check');
+        Route::post('/', 'BookmarkController@toggleStore')->name('toggleBookmark');
+    });
+});
+
+Route::prefix('v1/like')->namespace('App\Http\Controllers\Api')->group(function () {
+    // get like by user web
+    Route::middleware(['auth:sanctum' , 'cors'])->group(function () {
+        Route::get('/', 'LikeController@list');
+        Route::post('/check', 'LikeController@check');
+        Route::post('/', 'LikeController@toggleStore')->name('toggleLike');
+    });
+});

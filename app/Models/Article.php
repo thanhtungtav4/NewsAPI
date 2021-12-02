@@ -154,6 +154,7 @@ class Article extends Model
     {
         return $this->belongsTo('\App\Models\Category', 'category_id');
     }
+
     public function users()
     {
         return $this->belongsTo('\App\Models\User', 'user_id');
@@ -169,6 +170,7 @@ class Article extends Model
         return $this->belongsToMany('\App\Models\Comment', 'article_comment');
     }
 
+    
     // public function commentsx()
     // {
     //     return $this->belongsToMany('\App\Models\Comment', 'article_comment');
@@ -216,7 +218,7 @@ class Article extends Model
     */
     public function getNews(array $filter = []){
         $news = Article::orderBy('created_at', 'DESC')
-                ->with(['category', 'users']);
+            ->with(['category', 'users']);
         $news->select('title', 'user_id', 'slug', 'category_id', 'description', 'status', 'created_at', 'image' )
             ->where('status', 'PUBLISHED');       
         // filter post by category_id      
@@ -236,7 +238,6 @@ class Article extends Model
         if (isset($filter['postByUserId']) && $filter['postByUserId'] != null) {
             $news->where('user_id', $filter['postByUserId']);
         }
-        
         //filter limit get post
         if (isset($filter['limit']) && $filter['limit'] != null) {
            return $news->limit($filter['limit'])->get();
@@ -277,6 +278,7 @@ class Article extends Model
     }
 
     public function getPostBySlug($slug){
+        //dd($slug);
         $newDetail = Article::where('slug', $slug)
             ->where('status', 'PUBLISHED')
             ->with(['category', 'tags', 'users'])
