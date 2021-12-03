@@ -60,6 +60,13 @@ class AuthController extends Controller
         ], 200);
     }
 
+    public function refresh(Request $request)
+    {
+        $user = $request->user();
+        $user->tokens()->delete();
+        return response()->json(['token' => $user->createToken($user->name)->plainTextToken]);
+    }
+
     public function user()
     {
         $user = Auth::user('id', 'name', 'email', 'username');

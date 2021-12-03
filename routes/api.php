@@ -18,6 +18,7 @@ Route::prefix('v1/user')->namespace('App\Http\Controllers\Api')->group(function 
     Route::middleware(['auth:sanctum' , 'cors'])->group(function () {
         Route::get('/', 'AuthController@user');
         Route::post('/logout', 'AuthController@logout');
+        Route::get('/refresh', 'AuthController@refresh');
     });
     // User web
     Route::post('/register', 'AuthController@register');
