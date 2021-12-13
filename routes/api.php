@@ -60,3 +60,10 @@ Route::prefix('v1/like')->namespace('App\Http\Controllers\Api')->group(function 
         Route::post('/', 'LikeController@toggleStore')->name('toggleLike');
     });
 });
+
+Route::prefix('v1/crawler')->namespace('App\Http\Controllers\Api')->group(function () {
+    // get crawler 
+    Route::middleware(['auth:sanctum', 'cors'])->group(function () {
+        Route::post('/', 'CrawlerController@getLink');
+    });
+});

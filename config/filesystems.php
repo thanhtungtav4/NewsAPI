@@ -71,6 +71,11 @@ return [
             'bucket' => 'your-bucket',
         ],
 
+        'drawler' => [
+            'driver' => 'local',
+            'root'   => public_path('uploads\drawler'),
+        ],
+
     ],
 
     /*

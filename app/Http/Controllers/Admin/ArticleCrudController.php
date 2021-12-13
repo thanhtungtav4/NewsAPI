@@ -154,9 +154,10 @@ class ArticleCrudController extends CrudController
             $this->crud->addField([
                 'name' => 'image',
                 'label' => 'Featured Image',
-                'type' => 'image',
+                'type' => 'browse',
                 'tab'               => 'NEWS EXTRA INFO',
             ]);
+            
             $this->crud->addField([
                 'name'              => 'description',
                 'label'             => 'Description',
@@ -167,7 +168,7 @@ class ArticleCrudController extends CrudController
                 'name' => 'date',
                 'label' => 'Date',
                 'type' => 'date',
-                'default' => date('Y-m-d'),
+                'default' => date('d-m-Y'),
                 'tab'               => 'NEWS EXTRA INFO',
             ]);
             $this->crud->addField([
@@ -201,7 +202,7 @@ class ArticleCrudController extends CrudController
             $this->crud->addField([
                 'name' => 'meta_image',
                 'label' => 'Meta Image',
-                'type' => 'image',
+                'type' => 'browse',
                 'tab'  => 'META SEO',
             ]);
             
