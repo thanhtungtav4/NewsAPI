@@ -61,8 +61,8 @@ class CrawlerController extends Controller
             return response()->json('Chưa hỗ trợ tên miền', 500);
         }
         $is_data = $this->DrawlerData($url_full, $domain['host']);
-        $is_data['category']  = $request->category ? $request->category : 1;
-        $is_data['status'] = $request->status ? $request->status : 'DRAFT';
+        $is_data['category_id']  = $request->category ? $request->category : 1;
+        $is_data['status'] = $request->status ? $request->status : 'PUBLISHED';
         $Crawler = new Crawler();
         $makeArticle = $Crawler->Store($is_data);
         return response()->json($makeArticle, 200);

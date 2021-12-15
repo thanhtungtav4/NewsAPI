@@ -10,6 +10,13 @@ use Auth;
 
 class LikeController extends Controller
 {
+    public function list(){
+        $mLike = new Like();
+        $user_id = Auth::user()->id;
+        $oData = $mLike->getbyUserID($user_id);
+        return $oData;
+    }
+
     public function check(Request $request){
         $user_id = Auth::id();
         $article_id = $request->id;

@@ -43,7 +43,7 @@ class Crawler extends Model
                 'content' => $data['content'],
                 'description' => $data['description'],
                 'image' => $data['featured_image'],
-                'category_id' => $data['category'],
+                'category_id' => $data['category_id'],
                 'user_id' => $data['user_id'],
                 'status' => $data['status'],
                 'date' => $data['date'],
