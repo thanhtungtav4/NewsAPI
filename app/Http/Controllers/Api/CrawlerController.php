@@ -65,6 +65,6 @@ class CrawlerController extends Controller
         $is_data['status'] = $request->status ? $request->status : 'PUBLISHED';
         $Crawler = new Crawler();
         $makeArticle = $Crawler->Store($is_data);
-        return response()->json($makeArticle, 200);
+        return response()->json("Đã Lưu Bài viết Thành công", 200);
     }
 }
